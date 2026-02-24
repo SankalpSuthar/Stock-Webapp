@@ -1,73 +1,36 @@
-Overview
-Stock WebApp is a full-stack Zerodha-style clone built with:
+# Stock Web App
 
-React (landing app in frontend)
-React (trading dashboard in dashboard)
-Node.js + Express + MongoDB (API in backend)
-The Render deployment serves the frontend through the backend service.
+[Live Demo](https://example.com)
 
-Repository Structure
-backend/ - Express API, MongoDB models, production static serving
-frontend/ - Main React landing web app
-dashboard/ - Trading dashboard React app
-Tech Stack
-Frontend: React, React Router, Bootstrap
-Dashboard: React, MUI, Axios, Chart.js
-Backend: Express, Mongoose, CORS, dotenv
-Database: MongoDB Atlas
-Deployment: Render
-Environment Variables
-Set the following in backend/.env for local use and in Render for production:
+## Description
+This is a stock web application that allows users to view and manage their stock portfolio in real-time.
 
-MONGO_URL=<your_mongodb_connection_string>
-Example: MONGO_URL=mongodb+srv://username:password@cluster.mongodb.net/zerodha_clone?retryWrites=true&w=majority
+## Features
+- Real-time stock data
+- User-friendly interface
+- Portfolio management
+- Historical price charts
 
-Local Development
-1) Backend
-cd backend
-npm install
-npm start
-Runs API on http://localhost:3002 (or PORT if set).
+## Technologies Used
+- HTML
+- CSS
+- JavaScript
+- React
+- Node.js
 
-2) Frontend (landing)
-cd frontend
-npm install
-npm start
-Runs on http://localhost:3000.
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/SankalpSuthar/stock-webapp.git
+   ```
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the application:
+   ```bash
+   npm start
+   ```
 
-3) Dashboard (optional separate app)
-cd dashboard
-npm install
-npm start
-Runs on http://localhost:3001 (or next available port).
-
-Production Build
-Frontend build
-cd frontend
-npm run build
-Backend production build pipeline
-cd backend
-npm run build
-npm start
-backend build script compiles the frontend app and backend serves frontend/build.
-
-Render Deployment
-This repo includes render.yaml for blueprint deployment.
-
-Backend service settings:
-
-Root Directory: backend
-Build Command: npm install && npm run build
-Start Command: npm start
-Environment Variable: MONGO_URL
-If deployment changes do not reflect:
-
-Trigger Manual Deploy.
-Choose Clear build cache & deploy.
-API Endpoints
-GET /allHoldings
-GET /allPositions
-POST /newOrder
-Notes
-If MongoDB is not reachable, backend still starts but data routes may fail.
-For MongoDB Atlas, allow access from Render by adding 0.0.0.0/0 in Atlas Network Access.
+## Contribution
+Feel free to fork the repository and submit pull requests to contribute!
