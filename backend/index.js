@@ -1,6 +1,8 @@
 require("dotenv").config();
 
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -12,11 +14,21 @@ const { OrdersModel } = require("./model/OrdersModel");
 
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/zerodha_clone";
+const frontendBuildPath = path.resolve(__dirname, "../frontend/build");
+const frontendIndexPath = path.join(frontendBuildPath, "index.html");
+const isFrontendBuilt = fs.existsSync(frontendIndexPath);
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+
+if (isFrontendBuilt) {
+  app.use(express.static(frontendBuildPath));
+  console.log(`Serving frontend from: ${frontendBuildPath}`);
+} else {
+  console.warn("Frontend build not found. Serving API-only responses.");
+}
 
 // app.get("/addHoldings", async (req, res) => {
 //   let tempHoldings = [
@@ -210,6 +222,16 @@ app.post("/newOrder", async (req, res) => {
   res.send("Order saved!");
 });
 
+if (isFrontendBuilt) {
+  app.get("*", (req, res) => {
+    res.sendFile(frontendIndexPath);
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("Backend is running");
+  });
+}
+
 console.log('PORT (env):', process.env.PORT);
 console.log('MONGO_URL (env):', process.env.MONGO_URL);
 mongoose
@@ -230,6 +252,3 @@ mongoose
       console.log(`App started on port ${PORT} (without DB connection)`);
     });
   });
-app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
-});
