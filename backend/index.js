@@ -230,3 +230,6 @@ mongoose
       console.log(`App started on port ${PORT} (without DB connection)`);
     });
   });
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
